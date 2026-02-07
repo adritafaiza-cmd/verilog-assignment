@@ -40,9 +40,6 @@ module sequence_generator_tb;
         enable = 1;
 
         // Check the sequence over 8 clock cycles
-        // Note: The design outputs the current value, then updates index.
-        // We wait for negative edges to sample stable data.
-        
         @(negedge clk); if (data !== 4'hA) $display("Error: Expected A, got %h", data); else $display("Pass: Got A");
         @(negedge clk); if (data !== 4'hB) $display("Error: Expected B, got %h", data); else $display("Pass: Got B");
         @(negedge clk); if (data !== 4'hE) $display("Error: Expected E, got %h", data); else $display("Pass: Got E");
@@ -58,9 +55,3 @@ module sequence_generator_tb;
         $finish;
     end
 endmodule
-endmodule
-'''
-
-with open("sequence_generator/custom_tb.v", "w") as f:
-
-    f.write(custom_tb_code)
