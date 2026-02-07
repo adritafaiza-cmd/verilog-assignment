@@ -1,3 +1,4 @@
+cat << 'EOF' > sequence_generator/sequence_generator_tb.v
 `timescale 1ns/1ps
 
 module sequence_generator_tb;
@@ -64,3 +65,4 @@ module sequence_generator_tb;
         $finish;
     end
 endmodule
+EOF
