@@ -57,9 +57,10 @@ module sequence_generator_tb;
 
         $finish;
     end
-
+endmodule
 endmodule
 '''
 
 with open("sequence_generator/custom_tb.v", "w") as f:
+
     f.write(custom_tb_code)
