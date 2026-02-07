@@ -1,6 +1,3 @@
-cat << 'EOF' > sequence_generator/sequence_generator_tb.v
-`timescale 1ns/1ps
-
 module sequence_generator_tb;
 
     reg clk;
@@ -66,3 +63,4 @@ module sequence_generator_tb;
     end
 endmodule
 EOF
+
