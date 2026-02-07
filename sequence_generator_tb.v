@@ -47,7 +47,7 @@ module sequence_generator_tb;
         // FIX: Wait one extra cycle for the design to update from A -> B
         @(negedge clk);
 
-        // Check 2: Now check for B (note: we removed the @negedge clk here because we waited above)
+        // Check 2: Now check for B (we already waited above, so we check immediately)
         if (data !== 4'hB) $display("Error: Expected B, got %h", data); else $display("Pass: Got B");
         
         // Resume normal checking for the rest
@@ -64,4 +64,3 @@ module sequence_generator_tb;
         $finish;
     end
 endmodule
-
