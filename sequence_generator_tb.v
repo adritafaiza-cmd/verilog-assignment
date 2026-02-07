@@ -39,9 +39,18 @@ module sequence_generator_tb;
         $display("Starting Sequence Check...");
         enable = 1;
 
-        // Check the sequence over 8 clock cycles
-        @(negedge clk); if (data !== 4'hA) $display("Error: Expected A, got %h", data); else $display("Pass: Got A");
-        @(negedge clk); if (data !== 4'hB) $display("Error: Expected B, got %h", data); else $display("Pass: Got B");
+        // Check 1: Verify Reset State is A
+        @(negedge clk); 
+        if (data !== 4'hA) $display("Error: Expected A, got %h", data); 
+        else $display("Pass: Got A");
+
+        // WAIT one extra cycle for the 'enable' signal to take effect
+        @(negedge clk);
+
+        // Check 2: Now we expect the sequence to start moving (B -> E -> 7...)
+        // We removed the @(negedge clk) at the start of this line because we just waited above.
+        if (data !== 4'hB) $display("Error: Expected B, got %h", data); else $display("Pass: Got B");
+        
         @(negedge clk); if (data !== 4'hE) $display("Error: Expected E, got %h", data); else $display("Pass: Got E");
         @(negedge clk); if (data !== 4'h7) $display("Error: Expected 7, got %h", data); else $display("Pass: Got 7");
         @(negedge clk); if (data !== 4'hF) $display("Error: Expected F, got %h", data); else $display("Pass: Got F");
