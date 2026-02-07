@@ -1,3 +1,4 @@
+%%writefile sequence_generator/sequence_generator_tb.v
 `timescale 1ns/1ps
 
 module sequence_generator_tb;
@@ -44,13 +45,13 @@ module sequence_generator_tb;
         if (data !== 4'hA) $display("Error: Expected A, got %h", data); 
         else $display("Pass: Got A");
 
-        // WAIT one extra cycle for the 'enable' signal to take effect
+        // FIX: Wait one extra cycle for the design to update from A -> B
         @(negedge clk);
 
-        // Check 2: Now we expect the sequence to start moving (B -> E -> 7...)
-        // We removed the @(negedge clk) at the start of this line because we just waited above.
+        // Check 2: Now check for B (note: we removed the @negedge clk here because we waited above)
         if (data !== 4'hB) $display("Error: Expected B, got %h", data); else $display("Pass: Got B");
         
+        // Resume normal checking for the rest
         @(negedge clk); if (data !== 4'hE) $display("Error: Expected E, got %h", data); else $display("Pass: Got E");
         @(negedge clk); if (data !== 4'h7) $display("Error: Expected 7, got %h", data); else $display("Pass: Got 7");
         @(negedge clk); if (data !== 4'hF) $display("Error: Expected F, got %h", data); else $display("Pass: Got F");
